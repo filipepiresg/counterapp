@@ -36,13 +36,12 @@ export const CountersProvider = ({ children }) => {
   const addCounter = useCallback(
     (title) => {
       const newCounter = { title, value: 0 };
+      const newCounters = [...counters, newCounter];
 
-      setCounters([...counters, newCounter]);
-      if (indexSelected === -1) {
-        changeSelectedCounter(0);
-      }
+      setCounters(newCounters);
+      changeSelectedCounter(newCounters.length - 1);
     },
-    [changeSelectedCounter, counters, indexSelected]
+    [changeSelectedCounter, counters]
   );
 
   /**
