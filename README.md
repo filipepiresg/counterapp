@@ -5,6 +5,7 @@
   - [FUNCIONAMENTO](#funcionamento)
   - [INSTALAÇÃO](#instalação)
   - [COMO RODAR](#como-rodar)
+  - [SCREENSHOTS](#screenshots)
 
 ## SOLUÇÃO
 
@@ -66,5 +67,11 @@ Se tudo estiver dado certo, o projeto já deve estar funcionando perfeitamente e
  <p style="color:red; text-align:center;font-weight:bold">Caso seja utilizado o android, é necessário abrir o emulador antes de rodar o projeto</p>
 
 Após ter instalado no dispositivo, pela primeira vez, não é necessário rodar esse comando (pois demora demais) podemos simplesmente rodar o comando `npx react-native start` para que o bundler inicie rapidamente.
+
+## SCREENSHOTS
+
+![Android splash](./screenshots/android_01.png "splash screen")
+![Android counters](./screenshots/android_02.png "counters")
+![Android config](./screenshots/android_03.png "config")
 
 ---
