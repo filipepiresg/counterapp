@@ -1,62 +1,32 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useEffect, useState, useRef } from 'react';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
-import { first, get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 const CountersContext = createContext({
   counters: [],
-  selectedCounter: undefined,
-  loading: false,
+  indexSelected: -1,
+  loading: true,
   addCounter: (_title) => {},
-  deleteCounter: (_index) => {},
+  deleteCounter: () => {},
   changeSelectedCounter: (_item) => {},
-  updateCounter: (_item, _index) => {},
+  updateCounter: (_item) => {},
 });
 
 export const CountersProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [counters, setCounters] = useState([]);
-  const [selectedCounter, setSelectedCounter] = useState(first(counters));
+  const [indexSelected, setIndexSelected] = useState(-1);
 
-  useEffect(() => {
-    async function getCounters() {
-      try {
-        setLoading(true);
-        const _counters = JSON.parse(await AsyncStorage.getItem('@counters'));
-
-        setCounters(_counters);
-      } catch (error) {
-        console.log('ERROR ON GET COUNTER OF STORAGE', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getCounters();
-  }, []);
-
-  const saveCounters = useCallback(async () => {
-    try {
-      const _counters = JSON.stringify(counters);
-
-      await AsyncStorage.setItem('@counters', _counters);
-    } catch (error) {
-      console.log('ERROR ON SAVE COUNTER OF STORAGE', error);
-    }
-  }, [counters]);
-
-  useEffect(() => {
-    saveCounters();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [counters]);
+  const didMount = useRef(false);
 
   /**
-   * Change counter selected
-   * @param {Object} counter new selected counter
+   * Change counter selected by index
+   * @param {Number} index new selected counter
    */
-  const changeSelectedCounter = useCallback((counter) => {
-    setSelectedCounter(counter);
+  const changeSelectedCounter = useCallback((index) => {
+    setIndexSelected(index);
   }, []);
 
   /**
@@ -67,34 +37,21 @@ export const CountersProvider = ({ children }) => {
     (title) => {
       const newCounter = { title, value: 0 };
 
-      setCounters(counters.push(newCounter));
+      setCounters([...counters, newCounter]);
+      if (indexSelected === -1) {
+        changeSelectedCounter(0);
+      }
     },
-    [counters]
-  );
-
-  /**
-   * delete counter by index
-   * @param {Number} index position of counter
-   */
-  const deleteCounter = useCallback(
-    (index) => {
-      if (Number.isNaN(index)) return;
-
-      const newCounters = counters.filter((_, _index) => index === _index);
-
-      setCounters(newCounters);
-    },
-    [counters]
+    [changeSelectedCounter, counters, indexSelected]
   );
 
   /**
    * Update selected counter
    * @param {Object} counter new selected counter
-   * @param {Number} index position of selected counter
    */
   const updateCounter = useCallback(
-    (counter, index) => {
-      if (Number.isNaN(index)) return;
+    (counter) => {
+      if (indexSelected < 0) return;
 
       const newCounter = { ...counter };
       if (get(newCounter, 'value', 0) >= 9999) {
@@ -102,24 +59,75 @@ export const CountersProvider = ({ children }) => {
       }
 
       const newCounters = counters.map((_counter, _index) =>
-        index === _index ? newCounter : _counter
+        indexSelected === _index ? newCounter : _counter
       );
 
       setCounters(newCounters);
     },
-    [counters]
+    [counters, indexSelected]
   );
+
+  /**
+   * delete counter by index
+   */
+  const deleteCounter = useCallback(() => {
+    if (indexSelected < 0) return;
+
+    const newCounters = counters.filter((_, _index) => indexSelected !== _index);
+
+    setCounters(newCounters);
+    changeSelectedCounter(counters.length > 0 ? 0 : -1);
+  }, [changeSelectedCounter, counters, indexSelected]);
+
+  useEffect(() => {
+    async function getCounters() {
+      try {
+        setLoading(true);
+        const { counters: _counters = [], indexSelected: _indexSelected = 1 } = JSON.parse(
+          await AsyncStorage.getItem('@counters')
+        );
+
+        if (!isEmpty(_counters)) {
+          setCounters(_counters);
+
+          changeSelectedCounter(_indexSelected);
+        }
+      } catch (error) {
+        console.log('ERROR ON GET COUNTER OF STORAGE', error);
+      } finally {
+        setLoading(false);
+        didMount.current = true;
+      }
+    }
+
+    getCounters();
+  }, []);
+
+  const saveCounters = useCallback(async () => {
+    try {
+      const _counters = JSON.stringify({ counters, indexSelected });
+
+      await AsyncStorage.setItem('@counters', _counters);
+    } catch (error) {
+      console.log('ERROR ON SAVE COUNTER OF STORAGE', error);
+    }
+  }, [counters, indexSelected]);
+
+  useEffect(() => {
+    if (didMount.current) saveCounters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [counters, indexSelected]);
 
   return (
     <CountersContext.Provider
       value={{
         counters,
-        selectedCounter,
         loading,
+        indexSelected,
         changeSelectedCounter,
         addCounter,
-        deleteCounter,
         updateCounter,
+        deleteCounter,
       }}
     >
       {children}

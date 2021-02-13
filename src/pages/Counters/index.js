@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 
-import { isEmpty, get } from 'lodash';
+import { get } from 'lodash';
 
+import { Header } from '~/components';
 import CountersContext from '~/contexts/counters';
 
-import { Header } from '../../components';
 import Card from './components/Card';
 import Styles, { Container, Separator } from './styles';
 
 const Counters = () => {
-  const { counters, loading, selectedCounter, changeSelectedCounter, updateCounter } = useContext(
+  const { counters, loading, indexSelected, changeSelectedCounter, updateCounter } = useContext(
     CountersContext
   );
 
@@ -25,8 +25,7 @@ const Counters = () => {
           showsVerticalScrollIndicator={false}
           keyExtractor={(_, index) => String(index)}
           renderItem={({ item, index }) => {
-            const itemIsActive =
-              !isEmpty(selectedCounter) && get(selectedCounter, 'title', '') === get(item, 'title');
+            const itemIsActive = index === indexSelected;
 
             return (
               <Card
@@ -34,9 +33,9 @@ const Counters = () => {
                 isActive={itemIsActive}
                 onPress={() => {
                   if (itemIsActive) {
-                    updateCounter({ ...item, value: get(item, 'value', 0) + 1 }, index);
+                    updateCounter({ ...item, value: get(item, 'value', 0) + 1 });
                   } else {
-                    changeSelectedCounter(item);
+                    changeSelectedCounter(index);
                   }
                 }}
               />

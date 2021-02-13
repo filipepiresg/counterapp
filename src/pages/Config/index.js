@@ -1,11 +1,9 @@
 import React, { useContext } from 'react';
 import { Col } from 'react-native-easy-grid';
 
-import { isEqual } from 'lodash';
-
+import { Header } from '~/components';
 import CountersContext from '~/contexts/counters';
 
-import { Header } from '../../components';
 import Styles, {
   Container,
   Title,
@@ -17,7 +15,7 @@ import Styles, {
 } from './styles';
 
 const Config = () => {
-  const { counters, selectedCounter, addCounter, deleteCounter } = useContext(CountersContext);
+  const { counters, indexSelected, addCounter, deleteCounter } = useContext(CountersContext);
 
   return (
     <>
@@ -36,12 +34,8 @@ const Config = () => {
             </Button>
             <Button
               onPress={() => {
-                const indexSelected = counters.findIndex((_counter) =>
-                  isEqual(_counter, selectedCounter)
-                );
-
                 if (indexSelected >= 0) {
-                  deleteCounter(indexSelected);
+                  deleteCounter();
                 }
               }}
               style={Styles.buttonShadow}
