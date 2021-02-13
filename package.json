@@ -2,6 +2,11 @@
   "name": "CountersApp",
   "version": "0.0.1",
   "private": true,
+  "author": {
+    "email": "filipepiresg@gmail.com",
+    "name": "Filipe Pires",
+    "url": "https://filipepiresg.github.io"
+  },
   "scripts": {
     "build:android": "cd android && ./gradlew clean && ./gradlew assembleRelease",
     "pretty": "prettier --write",
