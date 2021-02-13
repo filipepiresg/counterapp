@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { Colors } from '~/styles';
 
 export const Container = styled.TouchableOpacity.attrs({
-  activeOpacity: 0.8,
+  activeOpacity: 1,
 })`
   width: 100%;
   background-color: ${(props) => (props.isActive ? Colors.CARD_ACTIVE : Colors.CARD_INACTIVE)};
