@@ -34,13 +34,11 @@ const Config = () => {
           <Row>
             <Button
               onPress={() => {
-                const numberCounter = last(
-                  get(counters, `[${counters.length - 1}].title`, `${counters.length}`).split(' ')
-                );
+                const lastTitles = counters.map(({ title }) => Number(last(title.split(' '))));
+                const lastTitlesFiltered = lastTitles.filter((lastTitle) => !isNaN(lastTitle));
+                const lastNumber = (last(lastTitlesFiltered) || 0) + 1;
 
-                addCounter(
-                  `Counter ${!isNaN(numberCounter) ? Number(numberCounter) + 1 : numberCounter + 1}`
-                );
+                addCounter(`Counter ${lastNumber}`);
               }}
               style={Styles.buttonShadow}
             >
