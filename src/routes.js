@@ -30,6 +30,7 @@ export default function Routes() {
             },
             activeTintColor: Colors.ICON_ACTIVE,
             inactiveTintColor: Colors.ICON_INACTIVE,
+            keyboardHidesTabBar: true,
           }}
           screenOptions={({ route }) => ({
             tabBarIcon: ({ color, size }) => {

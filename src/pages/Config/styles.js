@@ -1,10 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 import styled from 'styled-components/native';
 
 import { Colors } from '../../styles';
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView.attrs({
+  enabled: Platform.OS === 'ios',
+  behavior: Platform.select({
+    ios: 'padding',
+    android: null,
+  }),
+})`
   flex: 1;
   background-color: ${Colors.SECONDARY};
   padding: 20px;

@@ -22,6 +22,8 @@ Ao abrir o app, num primeiro momento, virá sem nenhum contador na tab `Counters
 Para adicionar um contador, é necessário ir até a tab `Config` e adicionar um novo contador, ao fazer essa acão ele já vai adicionar o novo ao selecionado.
 Na mesma tela, é possível incrementar, resetar e decrementar (respectivamente, nos botões abaixo), apartir do controlador do contador.
 
+Além disso, é possível editar o nome de um contador, basta na tela de `Config` e pressionar a controlador do contador e digitar o novo nome.
+
 Os estados são persistidos no storage do device.
 
 > Foi utilizado context pelo fato do projeto ser pequeno, e de não ter visto a necessidade de utilizar `redux` e não era um requerimento do desafio.

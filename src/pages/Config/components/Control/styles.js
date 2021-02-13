@@ -3,7 +3,9 @@ import styled from 'styled-components/native';
 
 import { Colors } from '../../../../styles';
 
-export const Container = styled.View`
+export const Container = styled.TouchableOpacity.attrs({
+  activeOpacity: 1,
+})`
   flex: 1;
   background-color: ${opacify(0.8, Colors.SECONDARY)};
   /* border: 1px solid white; */
@@ -28,7 +30,9 @@ export const Row = styled.View`
   margin-bottom: 10px;
 `;
 
-export const Title = styled.Text`
+export const Title = styled.Text.attrs({
+  numberOfLines: 2,
+})`
   color: ${Colors.CARD_ACTIVE};
   font-size: 36px;
   font-weight: 700;
@@ -46,9 +50,26 @@ export const Button = styled.TouchableOpacity.attrs({
   activeOpacity: 0.8,
 })`
   background-color: ${Colors.CARD_ACTIVE};
-  width: 30%;
+  width: ${(props) => (props.isEdit ? '45' : '30')}%;
   align-items: center;
   justify-content: center;
   padding: 10px;
   border-radius: 5px;
+`;
+
+export const ButtonTitle = styled.Text`
+  font-size: 18px;
+  text-align: center;
+  color: ${Colors.CONFIG_BUTTON_TITLE};
+`;
+
+export const Input = styled.TextInput.attrs({
+  placeholderTextColor: Colors.CARD_ACTIVE_TITLE,
+  underlineColorAndroid: 'transparent',
+})`
+  color: ${Colors.CONFIG_TITLE};
+  font-size: 36px;
+  font-weight: 700;
+  flex-wrap: wrap;
+  padding: 0;
 `;
