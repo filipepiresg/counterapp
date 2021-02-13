@@ -10,6 +10,8 @@ const colors = {
   CARD_INACTIVE: 'rgb(112,173,207)',
   ICON_ACTIVE: 'rgb(253,148,38)',
   ICON_INACTIVE: 'rgb(142,142,147)',
+  CONFIG_TITLE: 'rgb(51,48,41)',
+  CONFIG_BUTTON_TITLE: 'rgb(20,57,119)',
 };
 
 export default colors;
