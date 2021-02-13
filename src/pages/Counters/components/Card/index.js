@@ -7,7 +7,7 @@ import { Container, Title, Counter } from './styles';
 const Card = ({ item, isActive = false, onPress = () => {} }) => (
   <Container isActive={isActive} onPress={onPress}>
     <Title isActive={isActive}>{item.title}</Title>
-    <Counter isActive={isActive}>{item.value}</Counter>
+    <Counter isActive={isActive}>{item.value.toString().padStart(4, '0')}</Counter>
   </Container>
 );
 

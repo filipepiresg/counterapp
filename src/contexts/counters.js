@@ -101,6 +101,7 @@ export const CountersProvider = ({ children }) => {
     }
 
     getCounters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveCounters = useCallback(async () => {

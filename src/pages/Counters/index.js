@@ -3,8 +3,6 @@ import { FlatList } from 'react-native';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-import { get } from 'lodash';
-
 import { Header } from '~/components';
 import CountersContext from '~/contexts/counters';
 
@@ -13,9 +11,7 @@ import Styles, { Container, Separator } from './styles';
 
 const Counters = () => {
   const tabBarHeight = useBottomTabBarHeight();
-  const { counters, loading, indexSelected, changeSelectedCounter, updateCounter } = useContext(
-    CountersContext
-  );
+  const { counters, loading, indexSelected, changeSelectedCounter } = useContext(CountersContext);
 
   return (
     <>
@@ -35,9 +31,7 @@ const Counters = () => {
                 item={item}
                 isActive={itemIsActive}
                 onPress={() => {
-                  if (itemIsActive) {
-                    updateCounter({ ...item, value: get(item, 'value', 0) + 1 });
-                  } else {
+                  if (!itemIsActive) {
                     changeSelectedCounter(index);
                   }
                 }}
