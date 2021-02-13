@@ -1,4 +1,4 @@
-package com.countersapp;
+package br.com.filipepiresg.counters;
 
 import com.facebook.react.ReactActivity;
 
