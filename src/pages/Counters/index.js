@@ -3,9 +3,8 @@ import { FlatList } from 'react-native';
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
-import { Header } from '~/components';
-import CountersContext from '~/contexts/counters';
-
+import { Header } from '../../components';
+import CountersContext from '../../contexts/counters';
 import Card from './components/Card';
 import Styles, { Container, Separator } from './styles';
 

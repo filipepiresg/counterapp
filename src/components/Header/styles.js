@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Colors } from '~/styles';
+import { Colors } from '../../styles';
 
 export const Container = styled.SafeAreaView`
   background-color: ${Colors.PRIMARY};

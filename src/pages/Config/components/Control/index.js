@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import CountersContext from '~/contexts/counters';
-import { Colors } from '~/styles/index';
-
+import CountersContext from '../../../../contexts/counters';
+import { Colors } from '../../../../styles/index';
 import { Container, Content, Title, Value, Button, Row } from './styles';
 
 const Control = ({ item }) => {

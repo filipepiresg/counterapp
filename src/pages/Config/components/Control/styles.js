@@ -1,7 +1,7 @@
 import { opacify, transparentize } from 'polished';
 import styled from 'styled-components/native';
 
-import { Colors } from '~/styles';
+import { Colors } from '../../../../styles';
 
 export const Container = styled.View`
   flex: 1;

@@ -4,9 +4,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 
-import { CountersPage, ConfigPage } from '~/pages';
-
 import { CountersProvider } from './contexts/counters';
+import { CountersPage, ConfigPage } from './pages';
 import { Colors } from './styles';
 
 const Tab = createBottomTabNavigator();

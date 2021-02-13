@@ -4,9 +4,8 @@ import { Col } from 'react-native-easy-grid';
 
 import { isEmpty, get, last, isNaN } from 'lodash';
 
-import { Header } from '~/components';
-import CountersContext from '~/contexts/counters';
-
+import { Header } from '../../components';
+import CountersContext from '../../contexts/counters';
 import Control from './components/Control';
 import Styles, {
   Container,
