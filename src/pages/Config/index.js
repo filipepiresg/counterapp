@@ -1,9 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
+import { Alert } from 'react-native';
 import { Col } from 'react-native-easy-grid';
+
+import { isEmpty, get, last, isNaN } from 'lodash';
 
 import { Header } from '~/components';
 import CountersContext from '~/contexts/counters';
 
+import Control from './components/Control';
 import Styles, {
   Container,
   Title,
@@ -17,6 +21,11 @@ import Styles, {
 const Config = () => {
   const { counters, indexSelected, addCounter, deleteCounter } = useContext(CountersContext);
 
+  const isEmptyCounters = useMemo(() => isEmpty(counters[indexSelected]), [
+    counters,
+    indexSelected,
+  ]);
+
   return (
     <>
       <Header title='Config' />
@@ -26,7 +35,13 @@ const Config = () => {
           <Row>
             <Button
               onPress={() => {
-                addCounter(`Counter ${counters.length + 1}`);
+                const numberCounter = last(
+                  get(counters, `[${counters.length - 1}].title`, `${counters.length}`).split(' ')
+                );
+
+                addCounter(
+                  `Counter ${!isNaN(numberCounter) ? Number(numberCounter) + 1 : numberCounter + 1}`
+                );
               }}
               style={Styles.buttonShadow}
             >
@@ -34,8 +49,23 @@ const Config = () => {
             </Button>
             <Button
               onPress={() => {
-                if (indexSelected >= 0) {
-                  deleteCounter();
+                if (!get(counters, `[${indexSelected}]`, false)) {
+                  Alert.alert('Counters empty', 'No counters');
+                } else if (indexSelected < 0) {
+                  Alert.alert('Counter not seleted', 'No counter has been selected');
+                } else {
+                  Alert.alert(
+                    'Remove counter',
+                    `Are you sure you want to delete '${counters[indexSelected].title}'?`,
+                    [
+                      {
+                        text: 'OK',
+                        onPress: deleteCounter,
+                      },
+                      { text: 'Cancel', style: 'destructive' },
+                    ],
+                    { cancelable: true }
+                  );
                 }
               }}
               style={Styles.buttonShadow}
@@ -47,7 +77,11 @@ const Config = () => {
         <Col size={0.5}>
           <Title>Selected Counter</Title>
           <ControlCounters>
-            <ControlTitle>Counter Controls</ControlTitle>
+            {isEmptyCounters ? (
+              <ControlTitle>Counter Controls</ControlTitle>
+            ) : (
+              <Control item={counters[indexSelected]} />
+            )}
           </ControlCounters>
         </Col>
       </Container>

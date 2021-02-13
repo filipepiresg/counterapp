@@ -44,7 +44,7 @@ export const ControlCounters = styled.View`
   flex: 1;
   border-radius: 8px;
   border: 3px dashed ${Colors.CARD_ACTIVE};
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 `;
 
@@ -52,6 +52,7 @@ export const ControlTitle = styled.Text`
   color: ${Colors.CARD_ACTIVE};
   font-size: 30px;
   font-weight: 600;
+  text-align: center;
 `;
 
 export default StyleSheet.create({
