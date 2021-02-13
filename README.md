@@ -13,6 +13,8 @@ Projeto criado com o comando `npx react-native init CountersApp` utilizando a ve
 
 Roda em dispositivos Apple (iOS) e em Android.
 
+**O apk pode ser baixado [aqui](https://github.com/filipepiresg/counterapp/releases/tag/1.0.0)**
+
 ## FUNCIONAMENTO
 
 Ao abrir o app, num primeiro momento, virá sem nenhum contador na tab `Counters`.
