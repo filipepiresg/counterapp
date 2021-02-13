@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { FlatList } from 'react-native';
 
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+
 import { get } from 'lodash';
 
 import { Header } from '~/components';
@@ -10,6 +12,7 @@ import Card from './components/Card';
 import Styles, { Container, Separator } from './styles';
 
 const Counters = () => {
+  const tabBarHeight = useBottomTabBarHeight();
   const { counters, loading, indexSelected, changeSelectedCounter, updateCounter } = useContext(
     CountersContext
   );
@@ -42,7 +45,7 @@ const Counters = () => {
             );
           }}
           style={Styles.list}
-          contentContainerStyle={Styles.contentList}
+          contentContainerStyle={[Styles.contentList, { paddingBottom: tabBarHeight }]}
           ItemSeparatorComponent={() => <Separator />}
         />
       </Container>
