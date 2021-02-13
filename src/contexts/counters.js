@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState, useRef } from 'react';
+import Splashscreen from 'react-native-splash-screen';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -96,6 +97,8 @@ export const CountersProvider = ({ children }) => {
       } finally {
         setLoading(false);
         didMount.current = true;
+
+        Splashscreen.hide();
       }
     }
 
