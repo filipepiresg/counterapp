@@ -74,4 +74,8 @@ Após ter instalado no dispositivo, pela primeira vez, não é necessário rodar
 ![Android counters](./screenshots/android_02.png "counters")
 ![Android config](./screenshots/android_03.png "config")
 
+![iOS splash](./screenshots/ios_01.png "splash screen")
+![iOS counters](./screenshots/ios_02.png "counters")
+![iOS config](./screenshots/ios_03.png "config")
+
 ---
