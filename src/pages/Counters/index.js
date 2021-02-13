@@ -6,6 +6,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { Header } from '../../components';
 import CountersContext from '../../contexts/counters';
 import Card from './components/Card';
+import EmptyCounters from './components/EmptyCounters';
 import Styles, { Container, Separator } from './styles';
 
 const Counters = () => {
@@ -40,6 +41,11 @@ const Counters = () => {
           style={Styles.list}
           contentContainerStyle={[Styles.contentList, { paddingBottom: tabBarHeight }]}
           ItemSeparatorComponent={() => <Separator />}
+          ListEmptyComponent={() => {
+            if (loading) return null;
+
+            return <EmptyCounters />;
+          }}
         />
       </Container>
     </>
